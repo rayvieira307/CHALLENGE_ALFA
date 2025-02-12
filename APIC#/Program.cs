@@ -19,11 +19,11 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Minha API",
         Version = "v1",
-        Description = "Documentação da API de exemplo",
+        Description = "Documentação da API ",
         Contact = new OpenApiContact
         {
-            Name = "Seu Nome",
-            Email = "seunome@exemplo.com",
+            Name = "Rayssa",
+            Email = "vieirarayssa167@gmail.com",
             Url = new Uri("https://www.seusite.com"),
         }
     });
