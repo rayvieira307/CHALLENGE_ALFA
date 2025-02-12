@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;  // Adicione isso para usar o PasswordHasher
 using APIC_.Models;
 using APIC_.Data;
 
@@ -15,10 +15,12 @@ namespace APIC_.Controllers
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly PasswordHasher<User> _passwordHasher;
 
         public UserController(ApplicationDbContext context)
         {
             _context = context;
+            _passwordHasher = new PasswordHasher<User>();  // Inicializando o PasswordHasher
         }
 
         // GET: api/User
@@ -46,6 +48,9 @@ namespace APIC_.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
+            // Criptografando a senha antes de salvar
+            user.Password = _passwordHasher.HashPassword(user, user.Password);
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
@@ -58,6 +63,12 @@ namespace APIC_.Controllers
             if (id != user.Id)
             {
                 return BadRequest();
+            }
+
+            // Verificando se a senha foi alterada e criptografando
+            if (!string.IsNullOrEmpty(user.Password))
+            {
+                user.Password = _passwordHasher.HashPassword(user, user.Password);
             }
 
             _context.Entry(user).State = EntityState.Modified;
