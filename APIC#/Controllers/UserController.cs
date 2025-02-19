@@ -23,17 +23,27 @@ namespace APIC_.Controllers
             _passwordHasher = new PasswordHasher<User>();  // Inicializando o PasswordHasher
         }
 
-        // POST: api/User
-        [HttpPost]
-        public async Task<ActionResult<User>> CreateUser([FromBody] User user)
-        {
-            // Criptografando a senha antes de salvar
-            user.Password = _passwordHasher.HashPassword(user, user.Password);
+    // POST: api/User
+      [HttpPost] 
+     public async Task<ActionResult<User>> CreateUser([FromBody] User user)
+{
+    // Verificando se o e-mail já existe
+    var existingUser = await _context.Users
+        .FirstOrDefaultAsync(u => u.Email == user.Email);
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
-        }
+    if (existingUser != null)
+    {
+        return BadRequest("Já existe um usuário com este e-mail.");
+    }
+
+    // Criptografando a senha antes de salvar
+    user.Password = _passwordHasher.HashPassword(user, user.Password);
+
+    _context.Users.Add(user);
+    await _context.SaveChangesAsync();
+    return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+}
+
 
         // GET: api/User/{id}
         [HttpGet("{id}")]
@@ -53,38 +63,51 @@ namespace APIC_.Controllers
         }
 
         // PUT: api/User/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, User user)
-        {
-            if (id != user.Id)
-            {
-                return BadRequest("IDs não correspondem");
-            }
+       [HttpPut("{id}")]
+public async Task<IActionResult> UpdateUser(int id, User user)
+{
+    if (id != user.Id)
+    {
+        return BadRequest("IDs não correspondem");
+    }
 
-            // Verificando se a senha foi alterada e criptografando
-            if (!string.IsNullOrEmpty(user.Password))
-            {
-                user.Password = _passwordHasher.HashPassword(user, user.Password);
-            }
+    // Verificando se já existe outro usuário com o e-mail alterado
+    var existingUser = await _context.Users
+        .FirstOrDefaultAsync(u => u.Email == user.Email && u.Id != id);  // Não verifica o próprio usuário sendo atualizado
 
-            _context.Entry(user).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return NoContent();  // Sucesso mas sem retorno de dados
-        }
+    if (existingUser != null)
+    {
+        return BadRequest("Já existe um usuário com este e-mail.");
+    }
 
-        // DELETE: api/User/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+    // Verificando se a senha foi alterada e criptografando
+    if (!string.IsNullOrEmpty(user.Password))
+    {
+        user.Password = _passwordHasher.HashPassword(user, user.Password);
+    }
 
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return NoContent();  // Sucesso mas sem retorno de dados
-        }
+    _context.Entry(user).State = EntityState.Modified;
+    await _context.SaveChangesAsync();
+    return NoContent();  // Sucesso mas sem retorno de dados
+}
+       // DELETE: api/User/{id}
+[HttpDelete("{id}")]
+public async Task<IActionResult> DeleteUser(int id)
+{
+  
+    var user = await _context.Users.FindAsync(id);
+
+  
+    if (user == null)
+    {
+        return NotFound($"Usuário com o ID {id} não encontrado."); 
+    }
+
+    _context.Users.Remove(user);
+    await _context.SaveChangesAsync();
+
+    return NoContent(); 
+}
+
     }
 }

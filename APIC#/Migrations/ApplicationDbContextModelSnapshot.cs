@@ -57,6 +57,33 @@ namespace APIC_.Migrations
                     b.ToTable("Purchases");
                 });
 
+            modelBuilder.Entity("APIC_.Models.PurchaseItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PurchaseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.ToTable("PurchaseItems");
+                });
+
             modelBuilder.Entity("APIC_.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -87,12 +114,37 @@ namespace APIC_.Migrations
             modelBuilder.Entity("APIC_.Models.Purchase", b =>
                 {
                     b.HasOne("APIC_.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Purchases")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("APIC_.Models.PurchaseItem", b =>
+                {
+                    b.HasOne("APIC_.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("APIC_.Models.Purchase", null)
+                        .WithMany("PurchaseItems")
+                        .HasForeignKey("PurchaseId");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("APIC_.Models.Purchase", b =>
+                {
+                    b.Navigation("PurchaseItems");
+                });
+
+            modelBuilder.Entity("APIC_.Models.User", b =>
+                {
+                    b.Navigation("Purchases");
                 });
 #pragma warning restore 612, 618
         }

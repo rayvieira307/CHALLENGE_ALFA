@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic; 
+
 
 namespace APIC_.Models
 {
@@ -13,5 +15,6 @@ namespace APIC_.Models
         public DateTime OrderDate { get; set; }
         public decimal Total { get; set; }
         public required User User { get; set; } 
+        public ICollection<PurchaseItem> PurchaseItems {get; set;}
     }
 }
