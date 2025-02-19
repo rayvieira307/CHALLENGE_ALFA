@@ -67,14 +67,15 @@ namespace APIC_.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

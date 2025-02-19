@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="user-list-container">
+    <h2>Lista de Usuários</h2>
+    
+    <!-- Mensagem de erro caso ocorra algum erro -->
+    <div>
+      <p></p>
+    </div>
+  
+    <!-- Lista de usuários -->
+    <table *ngIf="users.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Admin</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.isAdmin ? 'Sim' : 'Não' }}</td>
+          <td>
+            <button>Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Caso não haja usuários -->
+    <div *ngIf="users.length === 0">
+      <p>Nenhum usuário encontrado.</p>
+    </div>
+  </div>
+  
+</body>
+</html>

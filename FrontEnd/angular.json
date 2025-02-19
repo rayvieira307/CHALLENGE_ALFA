@@ -29,12 +29,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -90,7 +85,8 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/app/components/user-list/user-list.component.css"
             ],
             "scripts": []
           }
@@ -99,6 +95,6 @@
     }
   },
   "cli": {
-    "analytics": "027cf4ab-e7af-424f-9da1-e9a0ca4fce87"
+    "analytics": false
   }
 }

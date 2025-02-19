@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace APIC_.Migrations
 {
     /// <inheritdoc />
-    public partial class CreatePurchasesTable : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +34,7 @@ namespace APIC_.Migrations
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Role = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

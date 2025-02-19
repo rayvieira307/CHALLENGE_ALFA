@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIC_.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250212182646_CreatePurchasesTable")]
-    partial class CreatePurchasesTable
+    [Migration("20250218225305_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,14 +70,15 @@ namespace APIC_.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
