@@ -1,0 +1,48 @@
+.spacer {
+  flex: 1;
+}
+  
+.toolbar {
+  background-color: rgb(230, 230, 230);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  color: black;
+  font-weight: 600;
+  margin: 0px, 5px, 0px, 5px;
+}
+
+.toolbar #user {
+  margin: 0 16px;
+}
+
+a,
+a:visited,
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+
+.social-icons {
+  color: #1c3a85; 
+  margin-right: 30px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 25px;  
+}
+
+.social-icons a {
+  text-decoration: none;  
+  color: inherit;  
+}
+
+.social-icons:hover a{
+    color: rgb(13, 20, 26);
+}
+
+
+

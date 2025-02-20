@@ -84,12 +84,12 @@ namespace APIC_.service
     {
         switch (role.ToLower())
         {
-            case "admin":
-                return "/admin/dashboard"; // Página de Admin
-            case "client":
-                return "/client/home";    // Página de Cliente
+            case "Admin":
+                return "/admin-home"; // Página de Admin
+            case "Client":
+                return "/home";    // Página de Cliente
             default:
-                return "/home";           // Página padrão
+                return "";           // Página padrão
         }
     }
 }

@@ -10,6 +10,16 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+        policy.WithOrigins("http://localhost:4200")  // URL do seu frontend
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials());
+});
+
 // Configuração do DbContext com a string de conexão
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -99,8 +109,8 @@ app.UseSwaggerUI(c =>
 });
 
 // Habilitando autenticação e autorização
+app.UseCors("AllowAngularApp");
 app.UseAuthentication();
-
 
 app.MapControllers();
 

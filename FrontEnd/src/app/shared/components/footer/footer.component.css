@@ -1,0 +1,38 @@
+
+.footer {
+  background-color: #1c3a85;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+ bottom: 0; 
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-links {
+  margin: 10px 0;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  margin-top: 8px;
+}
