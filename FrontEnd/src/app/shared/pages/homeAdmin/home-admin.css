@@ -1,0 +1,140 @@
+.Principal {
+    background-image: url('../../../../assets/FundoAdmin.avif');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 95vh;
+    width: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-box {
+    background-color: white; 
+    padding: 30px;
+    border-radius: 10px;
+    width: 55%; 
+    height: 65%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-top: 20px;
+    width: 100%; 
+    padding-left: 60px;
+}
+
+.cards-container{
+  margin-right: 100px;
+}
+
+.logo {
+    color: #000000;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.nav-links {
+    display: flex;
+    list-style-type: none;
+    margin-top: 10;
+    padding: 0px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 20px;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #3a4780;
+    border-radius: 5px;
+}
+
+.texto-imagem-container {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-between; 
+    width: 100%; 
+}
+
+.text-container {
+    width: 70%; 
+    font-size: 20px;
+    color: #333;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.text{
+    text-align: center;
+   justify-content: center;
+}
+
+.text-container h3 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.TextoAdmin {
+    width: 60%; 
+    display: flex;
+    justify-content: center; 
+}
+
+.ImgAdmin {
+    width: 100%;
+    max-width: 550px;
+}
+
+@media (max-width: 1200px) {
+
+    .welcome-box {
+        width: 80%; 
+        height: auto;  
+    }
+    
+    .navbar {
+        padding: 10px 40px;
+    }
+    
+    .logo {
+        font-size: 22px;
+    }
+    
+    .nav-links a {
+        font-size: 15px;
+    }
+
+    .texto-imagem-container {
+        flex-direction: column; 
+        justify-content: center;
+        align-items: center;
+    }
+
+    .text-container {
+        width: 90%;  
+    }
+
+    .TextoAdmin {
+        width: 80%;
+    }
+
+    .ImgAdmin {
+        max-width: 300px;  
+    }
+}
+

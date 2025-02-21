@@ -33,5 +33,6 @@ export class HeaderComponent implements OnInit {
   Logout() {
     this.userService.Logout();
     this.router.navigate(['']);
+    localStorage.removeItem('userToken');
   }
 }

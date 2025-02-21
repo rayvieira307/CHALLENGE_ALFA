@@ -1,0 +1,100 @@
+.ImageFundo {
+  background-image: url('../../../../assets/FundoAdmin.avif');
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  height: 100vh;                
+  width: 100%;
+  display: flex;
+  justify-content: center;    
+  align-items: center;         
+}
+
+.produto{
+  width: 150px;
+}
+
+.back-btn {
+  width: 100%;
+  background-color: #02268b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  display: block;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.product-list {
+  margin-top: -20px;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  padding: 20px;
+  gap: 20px;
+  max-width: 1500px;
+  width: 100%;                 
+  padding: 20px;
+  max-height: 90vh;           
+  overflow-y: auto;          
+}
+
+.product-card {            
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 250px;
+}
+
+
+.product-details  {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+
+.product-details p {
+  font-size: 1rem;
+  color: #252525;
+  
+}
+
+.product-details strong {
+  margin-right: 10px;
+}
+
+.product-actions {
+  margin-top: 10px;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  gap: 60px;
+}
+
+.product-actions i {
+  font-size: 20px;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.edit-icon {
+  color: #04248f;
+}
+
+.delete-icon {
+  color: #dc3545;
+}
+
+.delete-icon:hover, .edit-icon:hover{
+  background-color: #f0eeee;
+  padding: 8px;
+  border-radius: 20px;
+}

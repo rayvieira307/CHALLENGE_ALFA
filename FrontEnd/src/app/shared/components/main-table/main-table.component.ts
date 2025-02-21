@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+/* import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Product } from 'src/app/core/models/Product';
 import { ProductService } from 'src/app/core/services/ProductService';
@@ -69,3 +69,4 @@ export class MainTableComponent implements OnInit {
     });
   }
 }
+ */

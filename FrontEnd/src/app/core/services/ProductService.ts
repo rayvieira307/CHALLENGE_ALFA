@@ -1,33 +1,39 @@
-import { catchError, map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Constants } from './Constants';
-import { Product, ProductInsert, ProductUpdate } from '../models/Product';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Product } from '../models/Product';  // Certifique-se de que o caminho para o modelo está correto
 
 @Injectable({
   providedIn: 'root',
 })
-
 export class ProductService {
-  constructor(private http: HttpClient) { }
+  private apiUrl = `${environment.apiUrl}/api/Product`; 
 
-  GetList = () => this.http.get<Product[]>(`${Constants.PRODUCT}/Read`).pipe(
-    map((product: Product[]) => product),
-    catchError(error => { throw error; })
-  );
+  constructor(private http: HttpClient) {}
 
-  GetById = (id: number) => this.http.get<Product>(`${Constants.PRODUCT}/Read/${id}`).pipe(
-    map((product: Product) => product),
-    catchError(error => { throw error; })
-  );
+  // Método para obter todos os produtos
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl);
+  }
 
-  Insert = (obj: ProductInsert) => this.http.post(`${Constants.PRODUCT}/Create`, obj).pipe(
-    catchError(error => { throw error; })
-  );
+  // Método para obter um produto específico pelo id
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.apiUrl}/${id}`);
+  }
 
-  UpdateById = (obj: ProductUpdate) => this.http.put(`${Constants.PRODUCT}/UpdateById`, obj).pipe(
-    catchError(error => { throw error; })
-  );
-  RemoveById = () => { }
+  // Método para criar um novo produto
+  createProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.apiUrl, product);
+  }
 
+  // Método para atualizar um produto existente
+  updateProduct(id: number, product: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.apiUrl}/${id}`, product);
+  }
+
+  // Método para excluir um produto
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

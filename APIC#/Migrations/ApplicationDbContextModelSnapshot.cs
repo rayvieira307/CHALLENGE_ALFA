@@ -66,7 +66,7 @@ namespace APIC_.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("PurchaseId")
+                    b.Property<int>("PurchaseId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Quantity")
@@ -114,7 +114,7 @@ namespace APIC_.Migrations
             modelBuilder.Entity("APIC_.Models.Purchase", b =>
                 {
                     b.HasOne("APIC_.Models.User", "User")
-                        .WithMany("Purchases")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -130,21 +130,20 @@ namespace APIC_.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("APIC_.Models.Purchase", null)
+                    b.HasOne("APIC_.Models.Purchase", "Purchase")
                         .WithMany("PurchaseItems")
-                        .HasForeignKey("PurchaseId");
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
+
+                    b.Navigation("Purchase");
                 });
 
             modelBuilder.Entity("APIC_.Models.Purchase", b =>
                 {
                     b.Navigation("PurchaseItems");
-                });
-
-            modelBuilder.Entity("APIC_.Models.User", b =>
-                {
-                    b.Navigation("Purchases");
                 });
 #pragma warning restore 612, 618
         }

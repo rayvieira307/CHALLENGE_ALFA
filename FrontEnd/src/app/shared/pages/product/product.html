@@ -1,0 +1,24 @@
+<button (click)="voltar()" class="back-btn">
+  <div >
+    <p>Você tem a opção de modificar os dados dos produtos. Pode excluir um produto da lista quando necessário e adicionar um novo!</p>
+  </div>
+  <span class="material-icons">arrow_back</span> 
+</button>
+<div class="ImageFundo">
+  <div class="product-list">
+    <div class="product-card" *ngFor="let product of products">
+      <div class="product-details">
+        <img class="produto" src="../../../../assets/Produto.webp" alt="" >
+        <p><strong>Nome do Produto:</strong>{{ product.name }}</p>
+        <p><strong>Preço:</strong> R$ {{ product.price | currency }}</p>
+
+        <div class="product-actions">
+          <!-- Usando ícones do Material Icons -->
+          <span (click)="editProduct(product.id)" class="material-icons edit-icon">edit</span>
+          <span (click)="deleteProduct(product.id)" class="material-icons delete-icon">delete</span>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>

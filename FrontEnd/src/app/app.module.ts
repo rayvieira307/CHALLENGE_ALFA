@@ -15,18 +15,25 @@ import { FormsModule } from '@angular/forms';
 import { LoginPage } from './shared/pages/login-page/login-page';
 import { ButtonPage } from './shared/pages/button-page/button-page';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MainTableComponent } from './shared/components/main-table/main-table.component';
+/* import { MainTableComponent } from './shared/components/main-table/main-table.component'; */
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GenericDialog } from './shared/dialogs/generic-dialog/generic-dialog';
-import { ProductComponent } from './shared/dialogs/product/product.component';
 import { HomeComponent } from './shared/pages/homeCliente/home-page';
 import { AdminHomeComponent } from './shared/pages/homeAdmin/home-admin';
+import { UsersListComponent } from './shared/pages/userList/user-list';
+import { EditUserModalComponent } from './shared/components/edit-user/edit-user.component';
+import { ProductListComponent } from './shared/pages/product/product';
+/* import { PurchaseListComponent } from './shared/pages/purchase/purchase-list'; */
 
 @NgModule({
   declarations: [
+    ProductListComponent,
+/*     PurchaseListComponent, */
+    EditUserModalComponent,
+    UsersListComponent,
     AdminHomeComponent,
     HomeComponent,
     AppComponent,
@@ -34,8 +41,6 @@ import { AdminHomeComponent } from './shared/pages/homeAdmin/home-admin';
     FooterComponent,
     LoginPage,
     ButtonPage,
-    MainTableComponent,
-    ProductComponent,
     GenericDialog,
   ],
   imports: [

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using APIC_.Models;
 using APIC_.Data;
+using APIC_.service;
+using APIC_.Dto;
 
 namespace APIC_.Controllers
 {
@@ -16,11 +18,13 @@ namespace APIC_.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly PasswordHasher<User> _passwordHasher;
+        private readonly AuthService _authService;
 
-        public UserController(ApplicationDbContext context)
+        public UserController(ApplicationDbContext context, AuthService authService)
         {
             _context = context;
-            _passwordHasher = new PasswordHasher<User>();  // Inicializando o PasswordHasher
+            _passwordHasher = new PasswordHasher<User>();  
+            _authService = authService; 
         }
 
     // POST: api/User
@@ -62,35 +66,38 @@ namespace APIC_.Controllers
             return Ok(users);
         }
 
-        // PUT: api/User/{id}
-       [HttpPut("{id}")]
-public async Task<IActionResult> UpdateUser(int id, User user)
+   [HttpPut("{id}")]
+public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateDto userDto)
 {
-    if (id != user.Id)
+    if (id != userDto.Id)
     {
-        return BadRequest("IDs não correspondem");
+        return BadRequest("IDs não correspondem.");
     }
 
-    // Verificando se já existe outro usuário com o e-mail alterado
-    var existingUser = await _context.Users
-        .FirstOrDefaultAsync(u => u.Email == user.Email && u.Id != id);  // Não verifica o próprio usuário sendo atualizado
-
-    if (existingUser != null)
+    var user = await _context.Users.FindAsync(id);
+    if (user == null)
     {
-        return BadRequest("Já existe um usuário com este e-mail.");
+        return NotFound($"Usuário com ID {id} não encontrado.");
     }
 
-    // Verificando se a senha foi alterada e criptografando
-    if (!string.IsNullOrEmpty(user.Password))
+    // Atualize apenas os campos necessários
+    user.Name = userDto.Name;
+    user.Role = userDto.Role;
+
+    try
     {
-        user.Password = _passwordHasher.HashPassword(user, user.Password);
+        await _context.SaveChangesAsync();
+    }
+    catch (Exception ex)
+    {
+        return BadRequest($"Erro ao salvar usuário: {ex.Message}");
     }
 
-    _context.Entry(user).State = EntityState.Modified;
-    await _context.SaveChangesAsync();
-    return NoContent();  // Sucesso mas sem retorno de dados
+    return NoContent(); // Sucesso sem dados de retorno
 }
-       // DELETE: api/User/{id}
+
+   
+    // DELETE: api/User/{id}
 [HttpDelete("{id}")]
 public async Task<IActionResult> DeleteUser(int id)
 {

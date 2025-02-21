@@ -17,16 +17,17 @@ namespace APIC_.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var (token, redirectUrl) = await _authService.Authenticate(request.Email, request.Password);
-            
-            // Verifica se o token ou a URL de redirecionamento são nulos
-            if (token == null || redirectUrl == null)
+            // Chama o método de autenticação, que agora retorna apenas o token
+            var token = await _authService.Authenticate(request.Email, request.Password);
+
+            // Verifica se o token é nulo
+            if (token == null)
             {
                 return Unauthorized("Credenciais inválidas");
             }
 
-            // Retorna o token e a URL de redirecionamento
-            return Ok(new { Token = token, RedirectUrl = redirectUrl });
+            // Retorna apenas o token no formato JSON
+            return Ok(new { Token = token });
         }
     }
 }

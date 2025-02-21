@@ -1,0 +1,258 @@
+.Principal {
+  background-image: url('../../../../assets/FundoAdmin.avif');
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+}
+
+/* Estilo do modal */
+.NovoUsuario{
+  text-align: center;
+  font-size: 25px;
+  color: #024083;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 350px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  text-align: left;
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 95%;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.add-btn:hover {
+  background-color: #0056b3;
+}
+
+.add-btn {
+  margin-top: 10px;
+  background-color: #0056b3;
+  color: white;
+  width: 100%;
+  height: 70%;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 200px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: #073b6b;
+}
+
+
+
+/* Outros estilos */
+.back-btn {
+  width: 100%;
+  background-color: #02268b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  display: block;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.close-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 12px 25px; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px; 
+  margin-left: 90px;
+}
+
+.adicionar{
+  background-color: #02268b;
+  color: white; 
+  padding: 12px 25px; 
+  border: none;
+  border-radius: 5px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  margin-left: 20px;
+}
+
+.adicionar:hover{
+  background-color: #0056b3;
+}
+
+.user-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 30px;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1100px;
+  }
+
+  .user-card {
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInContainer {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+
+  .user-info {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .user-info h3 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .user-info p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  
+  .user-info strong {
+    font-weight: bold;
+    color: #333;
+  }
+  
+
+  .user-actions {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .edit-btn, .delete-btn {
+    border-radius: 50%;
+    background-color: #c0c0c0;
+    padding: 12px 14px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #000000;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .edit-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+  }
+  
+  .delete-btn:hover {
+    background-color: #e53935;
+    transform: scale(1.1);
+  }
+  
+  .material-icons {
+    font-size: 1.5em;
+  }
+  
+
+  .PerfilUsuario {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #f2f2f2;
+    margin-bottom: 20px;
+  }
+
+  .NomeUsuario{
+    color: #1c3a85;
+    font-family: 'cursive';
+    font-size: 30px;
+  }
+
+  .user-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 0 20px;
+    justify-items: start;
+  }
+  
+  .user-detail {
+    display: flex;
+    align-items: center;
+    color: #555;
+  }
+  
+  .user-detail span {
+    font-size: 1.6em;
+    color: #1c3a85;;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .user-detail p {
+    font-size: 1.1em;
+    color: #444;
+  }
+  
+
+
+  
+ 

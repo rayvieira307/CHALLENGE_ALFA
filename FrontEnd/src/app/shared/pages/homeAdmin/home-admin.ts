@@ -9,6 +9,7 @@ import { Router } from '@angular/router';  // Importando o Router
 })
 export class AdminHomeComponent implements OnInit {
 
+  mostrarListaUsuarios = false;
   constructor(
     private userService: UserService,
     private router: Router  // Injetando o Router
@@ -21,5 +22,9 @@ export class AdminHomeComponent implements OnInit {
     // Verificando se o usuário tem o papel de 'admin'
     const userRole = this.userService.getCurrentAccessLevel();
 
+  }
+
+  mostrarUsuarios() {
+    this.mostrarListaUsuarios = !this.mostrarListaUsuarios;
   }
 }

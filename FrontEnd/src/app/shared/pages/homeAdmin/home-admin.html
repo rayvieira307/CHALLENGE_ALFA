@@ -1,7 +1,29 @@
-<app-main-table></app-main-table>
-
-<div>
-    <h1>Bem-vindo à Home do Admin</h1>
-    <p>Aqui estão os dados exclusivos para administradores.</p>
-  </div>
-  
+<div class="Principal">
+   <div class="welcome-box">
+      <div class="logo">Alfa Laval</div>
+     <div class="cards-container">
+       <nav class="navbar">
+         <ul class="nav-links">
+            <li><a href="user-list" (click)="mostrarUsuarios()"> Funcionalidades Usuario</a></li>
+            <app-user-list *ngIf="mostrarListaUsuarios"></app-user-list>
+           <li><a href="admin/purchases">Filtro de Compras</a></li>
+           <li><a href="produtos"> Produtos</a></li>
+           <li><a href="#">Voltar a Pagina Inicial</a></li>
+         </ul>
+       </nav>
+     </div>
+     
+     <div class="texto-imagem-container">
+       <div class="text-container">
+         <h3>Bem-vindo ao Painel de Administração</h3>
+         <p class="text">Gerencie usuários, controle compras e muito mais através do painel de administração. A interface foi criada para facilitar o acesso rápido às funcionalidades essenciais, permitindo uma experiência mais eficiente e organizada. Utilize as opções acima para realizar suas tarefas administrativas com facilidade.</p>
+       </div>
+ 
+       <div class="TextoAdmin">
+         <img src="../../../../assets/AdmIcone.png" alt="Imagem Ilustrativa de Administradores" class="ImgAdmin">
+       </div>
+     </div>
+ 
+   </div>
+ </div>
+ 

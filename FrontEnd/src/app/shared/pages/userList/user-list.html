@@ -1,0 +1,82 @@
+
+<div class="Principal">
+  <button (click)="voltar()" class="back-btn">
+    <div>
+    
+      <p>Você tem a opção de modificar os dados dos usuários, como nome  e função. Pode excluir um usuário da lista quando necessário e Adicionar um novo usuario!</p>
+    </div>
+    <span class="material-icons">arrow_back</span> 
+  </button>
+
+<div class="user-cards">
+  <div *ngFor="let user of users; let i = index" class="user-card" [@fadeIn]="i">
+    <div class="user-info">
+      <img src="../../../../assets//Perfil.png" alt="Ícone do Usuario" class="PerfilUsuario">
+      <h2 class="NomeUsuario">{{ user.name }}</h2>
+      
+      <div class="user-details">
+        <div class="user-detail">
+          <span class="material-icons">work_outline</span>
+          <p><strong>Role:</strong> {{ user.role }}</p>
+        </div>
+        
+        <div class="user-detail">
+          <span class="material-icons">badge</span>
+          <p><strong>ID do Usuario:</strong> {{ user.id }}</p>
+        </div>
+        
+        <div class="user-detail">
+          <span class="material-icons">email</span>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+      </div>
+    </div>
+ 
+
+    
+
+    <div class="user-actions">
+      <button (click)="editUser(user)" class="edit-btn">
+        <span class="material-icons">edit</span> <!-- Ícone de lápis -->
+      </button>
+      <button (click)="deleteUser(user.id)" class="delete-btn">
+        <span class="material-icons">delete</span> <!-- Ícone de lixeira -->
+      </button>
+    </div>
+
+    
+  </div>
+  <button class="add-btn" (click)="abrirModal()">
+    <span class="material-icons">add</span> 
+    <p>CLIQUE E ADICIONE UM NOVO USUARIO</p>
+  </button>
+  
+  <!-- Modal -->
+  <div *ngIf="mostrarModal" class="modal-overlay">
+    <div class="modal">
+      <h2 class="NovoUsuario" >Novo Usuário</h2>
+      <form (ngSubmit)="adicionarUsuario()">
+        <div class="form-group">
+          <label for="name">Nome:</label>
+          <input type="text" id="name" [(ngModel)]="novoUsuario.name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="role">Função:</label>
+          <input type="text" id="role" [(ngModel)]="novoUsuario.role" name="role" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" [(ngModel)]="novoUsuario.email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Senha:</label>
+          <input type="passowrd" id="password" [(ngModel)]="novoUsuario.password" name="password" required />
+        </div>
+        <button class="adicionar"  type="submit">Adicionar</button>
+        <button class="close-btn" (click)="fecharModal()">Fechar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</div>

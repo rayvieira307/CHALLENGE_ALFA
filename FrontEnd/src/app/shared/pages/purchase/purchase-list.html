@@ -1,0 +1,52 @@
+<div class="purchase-list">
+    <h2>Lista de Compras</h2>
+  
+    <!-- Botão para adicionar uma nova compra -->
+    <button (click)="abrirModal()">Adicionar Compra</button>
+  
+    <div *ngIf="mostrarModal" class="modal-overlay">
+      <div class="modal">
+        <h2>Adicionar Compra</h2>
+        <form (ngSubmit)="adicionarPurchase()">
+          <div class="form-group">
+            <label for="productName">Nome do Produto:</label>
+            <input type="text" id="productName" [(ngModel)]="novoPurchase.productName" name="productName" required />
+          </div>
+          <div class="form-group">
+            <label for="amount">Quantidade:</label>
+            <input type="number" id="amount" [(ngModel)]="novoPurchase.amount" name="amount" required />
+          </div>
+          <div class="form-group">
+            <label for="date">Data:</label>
+            <input type="date" id="date" [(ngModel)]="novoPurchase.date" name="date" required />
+          </div>
+          <button class="adicionar" type="submit">Adicionar</button>
+          <button class="close-btn" (click)="fecharModal()">Fechar</button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Exibição das compras -->
+    <table>
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let purchase of purchases">
+          <td>{{ purchase.productName }}</td>
+          <td>{{ purchase.amount }}</td>
+          <td>{{ purchase.date }}</td>
+          <td>
+            <button (click)="editPurchase(purchase)">Editar</button>
+            <button (click)="deletePurchase(purchase.id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
