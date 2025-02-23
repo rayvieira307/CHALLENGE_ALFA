@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace APIC_.Migrations
 {
     /// <inheritdoc />
-    public partial class NomeDaMigracao : Migration
+    public partial class Banco : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,7 +71,7 @@ namespace APIC_.Migrations
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "TEXT", nullable: false),
                     ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PurchaseId = table.Column<int>(type: "INTEGER", nullable: true)
+                    PurchaseId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,7 +86,8 @@ namespace APIC_.Migrations
                         name: "FK_PurchaseItems_Purchases_PurchaseId",
                         column: x => x.PurchaseId,
                         principalTable: "Purchases",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

@@ -17,7 +17,7 @@ namespace APIC_.service
 {
     private readonly ApplicationDbContext _context;
     private readonly IConfiguration _configuration;
-    private readonly IPasswordHasher<User> _passwordHasher; // Injetando o PasswordHasher
+    private readonly IPasswordHasher<User> _passwordHasher; 
 
     public AuthService(ApplicationDbContext context, IConfiguration configuration, IPasswordHasher<User> passwordHasher)
     {
@@ -31,24 +31,24 @@ namespace APIC_.service
     var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
     if (user == null)
     {
-        return null; // Usuário não encontrado
+        return null;
     }
 
-    // Verificando se a senha está correta com o PasswordHasher
+   
     var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
     if (passwordVerificationResult == PasswordVerificationResult.Failed)
     {
-        return null; // Senha inválida
+        return null; 
     }
 
-    // Gerando os claims
+   
     var claims = new[] {
         new Claim(ClaimTypes.Name, user.Name),
         new Claim(ClaimTypes.Role, user.Role),
         new Claim("userId", user.Id.ToString())
     };
 
-    // Gerando o JWT
+    
     var secret = _configuration["Jwt:Secret"];
     if (string.IsNullOrEmpty(secret))
     {
@@ -66,14 +66,14 @@ namespace APIC_.service
         signingCredentials: creds
     );
 
-    // Retorna o token gerado
+  
     return new JwtSecurityTokenHandler().WriteToken(token);
 }
 
-    // Método para verificar o hash da senha usando o PasswordHasher do Identity
+    
     private bool VerifyPasswordHash(string password, string storedHash)
     {
-        // Não precisamos mais usar a lógica manual de hash, pois o PasswordHasher já lida com isso
+       
         return _passwordHasher.VerifyHashedPassword(null, storedHash, password) != PasswordVerificationResult.Failed;
     }
 

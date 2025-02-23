@@ -4,23 +4,12 @@
   unitPrice: number;
 }
 
-export interface PurchaseInsert {
-  userId: number; 
-  productId: number; 
-  quantity: number; 
-}
-
 export interface Purchase {
   id: number;
   userName: string;  
   orderDate: Date;
   total: number;
   items: PurchaseItem[];
-}
-
-export interface PurchaseComprar {
-  userId: number;
-  items: PurchaseItemRequest[];
 }
 
 export interface PurchaseItemRequest {

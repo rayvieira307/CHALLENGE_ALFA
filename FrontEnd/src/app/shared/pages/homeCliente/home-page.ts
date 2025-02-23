@@ -4,7 +4,7 @@ import { ProductService } from '../../../core/services/ProductService';
 import { Product } from '../../../core/models/Product';
 import { UserService } from '../../../core/services/UserService';
 import { PurchaseService } from '../../../core/services/PurchaseService';
-import { Purchase } from '../../../core/models/Purchase';
+import { Purchase, PurchaseItemRequest } from '../../../core/models/Purchase';
 
 @Component({
   selector: 'app-home',
@@ -21,9 +21,9 @@ export class HomeComponent implements OnInit {
   cart: { product: Product, quantity: number }[] = [];
   userId: number = 7;
   tempQuantities: { [productId: number]: number } = {};
-  showCartModal: boolean = false;  // Para controlar a visibilidade do modal
-  showHistoryModal: boolean = false;  // Para controlar o modal de histórico
-  userPurchases: Purchase[] = []; // Lista de compras do usuário
+  showCartModal: boolean = false;  
+  showHistoryModal: boolean = false;  
+  userPurchases: Purchase[] = []; 
 
   constructor(
     private userService: UserService,
@@ -109,16 +109,13 @@ export class HomeComponent implements OnInit {
     this.cartItemCount = this.cart.reduce((count, item) => count + item.quantity, 0);
   }
 
-  // Método para abrir o modal do carrinho
+ 
   openCartModal(): void {
     this.showCartModal = true;
-    console.log('Modal do Carrinho aberto');
   }
 
-  // Método para fechar o modal do carrinho
   closeCartModal(): void {
     this.showCartModal = false;
-    console.log('Modal do Carrinho fechado');
   }
 
   buy(): void {
@@ -127,23 +124,19 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    const purchaseData = {
-      userId: this.userId,
-      items: this.cart.map(item => ({
-        productId: item.product.id,
-        quantity: item.quantity
-      }))
-    };
+    
+    const items: PurchaseItemRequest[] = this.cart.map(item => ({
+      productId: item.product.id,
+      quantity: item.quantity
+    }));
 
-    console.log('Dados da compra:', purchaseData);
 
-    this.purchaseService.comprar(this.userId, purchaseData).subscribe({
-      next: (purchase) => {
-        console.log('Compra realizada com sucesso:', purchase);
+    this.purchaseService.comprar(this.userId, items).subscribe({
+      next: (response) => {
+        console.log('Compra realizada com sucesso:', response);
         alert('Compra realizada com sucesso!');
-        this.cart = [];
-        this.cartItemCount = 0;
-        this.closeCartModal();
+        this.cart = [];  // Limpa o carrinho
+        this.updateCartCount();
       },
       error: (error) => {
         console.error('Erro ao realizar a compra:', error);
@@ -151,6 +144,7 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
 
   // Método para exibir o histórico de compras
   showPurchaseHistory(): void {
@@ -168,7 +162,7 @@ export class HomeComponent implements OnInit {
 
   openHistoryModal() {
     console.log('Modal aberto');
-    this.showHistoryModal = true; // Abre o modal
+    this.showHistoryModal = true; 
   }
 
   closeHistoryModal(): void {

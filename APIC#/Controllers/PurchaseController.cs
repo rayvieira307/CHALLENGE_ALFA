@@ -20,7 +20,6 @@ namespace APIC_.Controllers
             _context = context;
         }
 
-        // Rota para listar todas as compras
         [HttpGet("listar")]
         public async Task<ActionResult> GetPurchases()
         {
@@ -43,7 +42,6 @@ namespace APIC_.Controllers
             }));
         }
 
-        // Rota para listar compras por ID do usuário
         [HttpGet("listar/{userId}")]
         public async Task<ActionResult> GetPurchasesByUser(int userId)
         {
@@ -75,27 +73,27 @@ namespace APIC_.Controllers
         }
 
     [HttpPost("comprar/{userId}")]
-public async Task<ActionResult<Purchase>> Comprar(int userId, [FromBody] List<PurchaseItemRequest> items)
+public async Task<ActionResult<Purchase>> Comprar(int userId, List<PurchaseItemRequest> items)
 {
-    // Encontrar o usuário
+   Console.WriteLine($"Requisição recebida para o userId: {userId}");
     var user = await _context.Users.FindAsync(userId);
     if (user == null)
     {
         return NotFound("Usuário não encontrado.");
     }
 
-    // Criar uma nova compra e atribuir o usuário
+
     var purchase = new Purchase
     {
-        User = user,  // Atribuindo o usuário à compra
+        User = user,  
         OrderDate = DateTime.UtcNow,
         Total = 0,
-        PurchaseItems = new List<PurchaseItem>()  // Inicializando a lista de items
+        PurchaseItems = new List<PurchaseItem>()  
     };
 
     decimal total = 0;
 
-    // Processar os itens e calcular o total
+   
     foreach (var itemRequest in items)
     {
         var product = await _context.Products.FindAsync(itemRequest.ProductId);
@@ -113,17 +111,16 @@ public async Task<ActionResult<Purchase>> Comprar(int userId, [FromBody] List<Pu
 
         purchase.PurchaseItems.Add(purchaseItem);
 
-        // Calcular o total
+        
         total += purchaseItem.Quantity * purchaseItem.UnitPrice;
     }
 
-    // Atualizar o total e salvar a compra
     purchase.Total = total;
 
     _context.Purchases.Add(purchase);
     await _context.SaveChangesAsync();
 
-    // Retornar os detalhes da compra
+
     return CreatedAtAction("GetPurchases", new { id = purchase.Id }, new
     {
         purchase.Id,

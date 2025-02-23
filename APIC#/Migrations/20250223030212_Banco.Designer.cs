@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIC_.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250220185226_AddCascadeDelete")]
-    partial class AddCascadeDelete
+    [Migration("20250223030212_Banco")]
+    partial class Banco
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,7 +117,7 @@ namespace APIC_.Migrations
             modelBuilder.Entity("APIC_.Models.Purchase", b =>
                 {
                     b.HasOne("APIC_.Models.User", "User")
-                        .WithMany("Purchases")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -130,7 +130,7 @@ namespace APIC_.Migrations
                     b.HasOne("APIC_.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("APIC_.Models.Purchase", "Purchase")
@@ -147,11 +147,6 @@ namespace APIC_.Migrations
             modelBuilder.Entity("APIC_.Models.Purchase", b =>
                 {
                     b.Navigation("PurchaseItems");
-                });
-
-            modelBuilder.Entity("APIC_.Models.User", b =>
-                {
-                    b.Navigation("Purchases");
                 });
 #pragma warning restore 612, 618
         }

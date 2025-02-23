@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Purchase, PurchaseComprar, PurchaseInsert } from '../models/Purchase';
+import { Purchase, PurchaseItemRequest } from '../models/Purchase';
 
 
 @Injectable({
@@ -9,33 +9,24 @@ import { Purchase, PurchaseComprar, PurchaseInsert } from '../models/Purchase';
 })
 export class PurchaseService {
 
-  private BASE_URL = 'http://localhost:5286';  // Substitua com o endpoint correto
+  private BASE_URL = 'http://localhost:5286';  
 
   constructor(private http: HttpClient) { }
 
-  // Método para buscar todas as compras
+
   getAllPurchases(): Observable<Purchase[]> {
     return this.http.get<Purchase[]>(`${this.BASE_URL}/api/Purchase/listar`);
   }
 
-  // Método para buscar as compras de um usuário específico
+
   getUserPurchases(userId: number): Observable<Purchase[]> {
     return this.http.get<Purchase[]>(`${this.BASE_URL}/api/Purchase/listar/${userId}`);
   }
 
-  comprar(userId: number, purchase: PurchaseComprar): Observable<Purchase> {
-    return this.http.post<Purchase>(`${this.BASE_URL}/api/Purchase/comprar/${userId}`, purchase);
+  comprar(userId: number, items: PurchaseItemRequest[]): Observable<any> {
+    console.log(`${this.BASE_URL}/api/Purchase/comprar/${userId}`);
+    console.log('Comprando com os seguintes itens:', items);
+    return this.http.post<Purchase>(`${this.BASE_URL}/api/Purchase/comprar/${userId}`, items);
   }
   
-
-  // Método para editar uma compra existente
-  updatePurchase(purchase: Purchase): Observable<Purchase> {
-    return this.http.put<Purchase>(`${this.BASE_URL}/api/Purchase/${purchase.id}`, purchase);
-  }
-
-  // Método para excluir uma compra
-  deletePurchase(purchaseId: number): Observable<void> {
-    return this.http.delete<void>(`${this.BASE_URL}/api/Purchase/${purchaseId}`);
-  }
-
 }
