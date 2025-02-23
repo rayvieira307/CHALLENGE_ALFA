@@ -1,52 +1,38 @@
-<div class="purchase-list">
-    <h2>Lista de Compras</h2>
-  
-    <!-- Botão para adicionar uma nova compra -->
-    <button (click)="abrirModal()">Adicionar Compra</button>
-  
-    <div *ngIf="mostrarModal" class="modal-overlay">
-      <div class="modal">
-        <h2>Adicionar Compra</h2>
-        <form (ngSubmit)="adicionarPurchase()">
-          <div class="form-group">
-            <label for="productName">Nome do Produto:</label>
-            <input type="text" id="productName" [(ngModel)]="novoPurchase.productName" name="productName" required />
-          </div>
-          <div class="form-group">
-            <label for="amount">Quantidade:</label>
-            <input type="number" id="amount" [(ngModel)]="novoPurchase.amount" name="amount" required />
-          </div>
-          <div class="form-group">
-            <label for="date">Data:</label>
-            <input type="date" id="date" [(ngModel)]="novoPurchase.date" name="date" required />
-          </div>
-          <button class="adicionar" type="submit">Adicionar</button>
-          <button class="close-btn" (click)="fecharModal()">Fechar</button>
-        </form>
-      </div>
+<div class="Principal">
+  <div class="purchase-container">
+    <h1 class="title">LISTA DE COMPRAS POR USUARIO</h1>
+
+    <!-- Barra de pesquisa -->
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar por nome de usuário..." class="search-bar">
+
+    <div *ngFor="let group of filteredPurchases()">
+      <p class="total"> Total das Compras Feitas por Usuario: {{ group.total | currency }}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>ID da Compra</th>
+            <th>Data da Compra</th>
+            <th>Valor Unitario</th>
+            <th>Item e Quantidades Compradas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let purchase of group.purchases">
+            <td>{{purchase.userName}}</td>
+            <td>{{ purchase.id }}</td>
+            <td>{{ purchase.orderDate | date }}</td>
+            <td>{{ purchase.total | currency }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let item of purchase.items">
+                  {{ item.productName}} - {{ item.quantity }} x {{ item.unitPrice | currency }}
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  
-    <!-- Exibição das compras -->
-    <table>
-      <thead>
-        <tr>
-          <th>Produto</th>
-          <th>Quantidade</th>
-          <th>Data</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let purchase of purchases">
-          <td>{{ purchase.productName }}</td>
-          <td>{{ purchase.amount }}</td>
-          <td>{{ purchase.date }}</td>
-          <td>
-            <button (click)="editPurchase(purchase)">Editar</button>
-            <button (click)="deletePurchase(purchase.id)">Excluir</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
-  
+</div>

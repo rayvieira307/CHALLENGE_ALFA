@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Product } from '../models/Product';  // Certifique-se de que o caminho para o modelo está correto
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -36,4 +37,5 @@ export class ProductService {
   deleteProduct(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  
 }

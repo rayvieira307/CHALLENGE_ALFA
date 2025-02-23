@@ -11,7 +11,11 @@
 }
 
 .produto{
-  width: 150px;
+  width: 180px;
+}
+
+.TituloPagina{
+  margin: 0 auto;
 }
 
 .back-btn {
@@ -28,28 +32,29 @@
 }
 
 .product-list {
-  margin-top: -20px;
+  margin-top: -80px;
+  margin: -80px auto;
   text-align: center;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-  padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));  
+  padding: 10px;
   gap: 20px;
   max-width: 1500px;
-  width: 100%;                 
-  padding: 20px;
-  max-height: 90vh;           
-  overflow-y: auto;          
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto; 
 }
 
-.product-card {            
+.product-card {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  height: 250px;
+  justify-content: center;
+  height: 350px;
+  box-sizing: border-box; 
 }
 
 
@@ -97,4 +102,153 @@
   background-color: #f0eeee;
   padding: 8px;
   border-radius: 20px;
+}
+
+
+/* Barra de pesquisa */
+.search-bar {
+  margin: 20px 0;
+  text-align: center;
+  position: relative;
+}
+
+.search-bar input {
+  padding: 8px;
+  width: 50%;
+  font-size: 16px;
+}
+
+
+/* tabela */
+.product-table {
+  width: 60%;
+  margin: 20px auto;
+  border-collapse: collapse; 
+  table-layout: fixed; 
+}
+
+.product-table th, .product-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.product-table th {
+  background-color: #003481;
+  color: white;
+  font-size: 18px;
+}
+
+.product-table td {
+  background-color: #f9f9f9;
+  font-size: 16px;
+}
+
+.product-table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+
+
+.product-table td {
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+
+
+
+/* Modal e estilos de botão */
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.modal h3 {
+  text-align: center;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal label {
+  margin: 10px 0 5px;
+}
+
+.modal input {
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal button {
+  padding: 10px;
+  background-color: #003481;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background-color: #005bb5;
+}
+
+.modal[style="display: none;"] {
+  display: none;
+}
+
+.add-product-icon {
+  margin-right: -10px;
+  margin-top: 0px;
+  position: absolute;
+  font-size: 36px; 
+  color: #003481; 
+  cursor: pointer; 
+  transition: color 0.3s ease; 
+}
+
+.add-product-icon:hover {
+  color: #056ed8; 
+}
+
+
+
+@media (max-width: 768px) {
+  .search-bar input {
+    width: 80%;
+  }
+
+  .product-table th, .product-table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .product-card{
+    width: 90%;
+  }
 }

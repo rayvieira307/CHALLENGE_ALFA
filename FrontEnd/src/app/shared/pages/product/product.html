@@ -1,24 +1,87 @@
 <button (click)="voltar()" class="back-btn">
-  <div >
+  <div>
     <p>Você tem a opção de modificar os dados dos produtos. Pode excluir um produto da lista quando necessário e adicionar um novo!</p>
   </div>
   <span class="material-icons">arrow_back</span> 
 </button>
+
+<!-- Modal para adicionar um novo produto -->
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <span (click)="closeModal()" class="close-btn">&times;</span>
+    <h3>Adicionar Novo Produto</h3>
+    <form (submit)="createProduct()">
+      <label for="product-name">Nome do Produto:</label>
+      <input type="text" id="product-name" [(ngModel)]="newProduct.name" name="name" required />
+
+      <label for="product-price">Preço:</label>
+      <input type="number" id="product-price" [(ngModel)]="newProduct.price" name="price" required />
+
+      <button type="submit">Adicionar Produto</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- Modal para editar produto -->
+<div class="modal" *ngIf="isEditing">
+  <div class="modal-content">
+    <span (click)="closeModal()" class="close-btn">&times;</span>
+    <h3>Editar Produto</h3>
+    <form (submit)="updateProduct()">
+      <label for="edit-product-name">Nome do Produto:</label>
+      <input type="text" id="edit-product-name" [(ngModel)]="productToEdit.name" name="name" required />
+
+      <label for="edit-product-price">Preço:</label>
+      <input type="number" id="edit-product-price" [(ngModel)]="productToEdit.price" name="price" required />
+
+      <button type="submit">Atualizar Produto</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+<div class="search-bar">
+  <input [(ngModel)]="searchQuery" (ngModelChange)="filterProducts()" type="text" placeholder="Pesquisar por nome do produto" />
+
+  <!-- Ícone de adicionar ao lado do input -->
+  <span (click)="openModal()" class="material-icons add-product-icon" title="Adicionar novo Produto">
+    add_circle
+  </span>
+</div>
+
+
+<table *ngFor="let product of filteredProducts" class="product-table">
+  <thead>
+    <tr>
+      <th>Id Produto</th>
+      <th>Preço</th>
+      <th>Nome</th>
+    </tr>
+  </thead>
+  <tr>
+    <td>{{ product.id }}</td>
+    <td>{{ product.price | currency }}</td>
+    <td>{{ product.name }}</td>
+  </tr>
+</table>
+
 <div class="ImageFundo">
   <div class="product-list">
     <div class="product-card" *ngFor="let product of products">
       <div class="product-details">
-        <img class="produto" src="../../../../assets/Produto.webp" alt="" >
+        <img class="produto" src="../../../../assets/ProdutoUsuario.png" alt="" >
+        <p><strong>Id do Produto:</strong>{{ product.id }}</p>
         <p><strong>Nome do Produto:</strong>{{ product.name }}</p>
         <p><strong>Preço:</strong> R$ {{ product.price | currency }}</p>
 
         <div class="product-actions">
-          <!-- Usando ícones do Material Icons -->
-          <span (click)="editProduct(product.id)" class="material-icons edit-icon">edit</span>
-          <span (click)="deleteProduct(product.id)" class="material-icons delete-icon">delete</span>
+          <span (click)="editProduct(product.id)" class="material-icons edit-icon" title="Editar Produto">edit</span>
+          <span (click)="deleteProduct(product.id)" class="material-icons delete-icon" title="Excluir Produto">delete</span>
         </div>
       </div>
-     
     </div>
   </div>
 </div>

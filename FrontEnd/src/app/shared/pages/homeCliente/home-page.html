@@ -1,2 +1,96 @@
-<h1>Bem-vindo à página Home Usuario!</h1>
-<p>Este é o conteúdo da sua página inicial.</p>
+<div class="Principal">
+  <div class="BarraUsuario">
+    <div class="search-container">
+      <input
+        type="text"
+        class="search-bar"
+        placeholder="Pesquisar produtos..."
+        [(ngModel)]="searchTerm"
+        (input)="filterProducts()"
+      />
+      <span class="material-icons">search</span>
+    </div>
+
+    <!-- Ícone do Carrinho -->
+    <div class="cart-container" (click)="openCartModal()">
+      <span class="material-icons cart-icon">shopping_cart</span>
+      <span *ngIf="cartItemCount > 0" class="cart-count">{{ cartItemCount }}</span>
+    </div>
+    <span class="material-icons" (click)="showPurchaseHistory()">history</span>
+
+  </div>
+
+
+<!-- Modal do Histórico de Compras -->
+<div *ngIf="showHistoryModal" class="history-modal open" (click)="closeHistoryModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Histórico de Compras</h3>
+
+    <!-- Verificar se o histórico de compras está vazio -->
+    <div *ngIf="userPurchases.length === 0">
+      <p>Você ainda não fez compras.</p>
+    </div>
+
+    <!-- Exibir compras, se houver -->
+    <div *ngFor="let purchase of userPurchases" class="purchase-item">
+      <h4>Data do Pedido: {{ purchase.orderDate | date: 'dd/MM/yyyy' }}</h4>
+      <p>Total: {{ purchase.total | currency }}</p>
+
+      <div *ngFor="let item of purchase.items">
+        <p>{{ item.productName }} - {{ item.quantity }} x {{ item.unitPrice | currency }}</p>
+      </div>
+    </div>
+
+    <button class="close-btn" (click)="closeHistoryModal()">Fechar</button>
+  </div>
+</div>
+
+
+
+  <h2 class="message">Encontre os melhores produtos abaixo. Pesquise ou navegue pelos itens!</h2>
+
+  <div class="product-container">
+    <div *ngIf="filteredProducts.length === 0">Nenhum produto encontrado.</div>
+
+    <div
+      class="product-card"
+      *ngFor="let product of filteredProducts; let i = index"
+      (click)="moveCard(i)"
+      [ngClass]="{ moved: movedIndex === i }"
+    >
+      <img alt="{{ product.name }}" src="../../../../assets/ProdutoUsuario.png" class="product-image" />
+      <div class="product-info">
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-price">Valor: {{ product.price | currency }}</p>
+
+        <!-- Adicionar ao Carrinho -->
+        <button class="buy-button" (click)="addToCart(product); $event.stopPropagation()">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  </div>
+
+ <!-- Modal do Carrinho -->
+<div *ngIf="showCartModal" class="cart-modal open" (click)="closeCartModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Finalize sua Compra!</h3>
+
+    <!-- Lista de Itens no Carrinho -->
+    <div *ngFor="let item of cart" class="cart-item">
+      <p>{{ item.product.name }} - {{ item.product.price | currency }}</p>
+      
+      <!-- Input para editar a quantidade -->
+      <input 
+        type="number" 
+        [(ngModel)]="item.quantity" 
+        min="1" 
+        (change)="updateCartCount()">
+      <p>Total: {{ item.quantity * item.product.price | currency }}</p>
+    </div>
+
+    <!-- Botões -->
+    <button class="finalize-btn" (click)="buy()">Finalizar Compra</button>
+    <button class="close-btn" (click)="closeCartModal()">Fechar</button>
+  </div>
+</div>
+
+</div>

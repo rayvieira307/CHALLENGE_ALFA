@@ -20,7 +20,8 @@ namespace APIC_.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+             var products = await _context.Products.ToListAsync();
+             return Ok(products);
         }
 
         // GET: api/Product/5

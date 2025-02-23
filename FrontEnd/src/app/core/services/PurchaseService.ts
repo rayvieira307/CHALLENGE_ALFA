@@ -1,7 +1,8 @@
-/* import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Purchase, PurchaseInsert } from '../models/Purchase';
+import { Purchase, PurchaseComprar, PurchaseInsert } from '../models/Purchase';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +23,10 @@ export class PurchaseService {
     return this.http.get<Purchase[]>(`${this.BASE_URL}/api/Purchase/listar/${userId}`);
   }
 
-  // Método para adicionar uma nova compra
-  addPurchase(purchase: PurchaseInsert): Observable<Purchase> {
-    return this.http.post<Purchase>(`${this.BASE_URL}/api/Purchase/adicionarAoCarrinho`, purchase);
+  comprar(userId: number, purchase: PurchaseComprar): Observable<Purchase> {
+    return this.http.post<Purchase>(`${this.BASE_URL}/api/Purchase/comprar/${userId}`, purchase);
   }
+  
 
   // Método para editar uma compra existente
   updatePurchase(purchase: Purchase): Observable<Purchase> {
@@ -36,5 +37,5 @@ export class PurchaseService {
   deletePurchase(purchaseId: number): Observable<void> {
     return this.http.delete<void>(`${this.BASE_URL}/api/Purchase/${purchaseId}`);
   }
+
 }
- */

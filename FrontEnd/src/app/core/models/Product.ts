@@ -2,7 +2,9 @@ export interface Product {
   id: number;
   name: string;
   price: number;
+  tempQuantity?: number; 
 }
+
 
 
 export class ProductInsert {

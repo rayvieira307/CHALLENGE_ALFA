@@ -129,6 +129,13 @@ deleteUser(userId: number): Observable<void> {
     };
   }
 
+
+getUserIdFromSession(): number {
+
+  return parseInt(localStorage.getItem('userId') || '0', 10);  
+}
+
+
   getCurrentToken(): string | null {
     return localStorage.getItem('token');
   }

@@ -26,7 +26,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Adicionando controladores para o Web API
 builder.Services.AddControllers();
-
 // Registro do PasswordHasher no DI
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 

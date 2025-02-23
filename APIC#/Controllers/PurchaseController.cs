@@ -74,100 +74,69 @@ namespace APIC_.Controllers
             }));
         }
 
-        // Rota para adicionar produto ao carrinho
-        [HttpPost("adicionarAoCarrinho")]
-        public async Task<ActionResult> AddAoCarrinho(int userId, int productId, int quantity)
+    [HttpPost("comprar/{userId}")]
+public async Task<ActionResult<Purchase>> Comprar(int userId, [FromBody] List<PurchaseItemRequest> items)
+{
+    // Encontrar o usuário
+    var user = await _context.Users.FindAsync(userId);
+    if (user == null)
+    {
+        return NotFound("Usuário não encontrado.");
+    }
+
+    // Criar uma nova compra e atribuir o usuário
+    var purchase = new Purchase
+    {
+        User = user,  // Atribuindo o usuário à compra
+        OrderDate = DateTime.UtcNow,
+        Total = 0,
+        PurchaseItems = new List<PurchaseItem>()  // Inicializando a lista de items
+    };
+
+    decimal total = 0;
+
+    // Processar os itens e calcular o total
+    foreach (var itemRequest in items)
+    {
+        var product = await _context.Products.FindAsync(itemRequest.ProductId);
+        if (product == null)
         {
-            var user = await _context.Users.FindAsync(userId);
-            if (user == null)
-            {
-                return NotFound("Usuário não encontrado.");
-            }
-
-            var product = await _context.Products.FindAsync(productId);
-            if (product == null)
-            {
-                return NotFound("Produto não encontrado.");
-            }
-
-            var purchase = await _context.Purchases
-                                          .FirstOrDefaultAsync(p => p.UserId == userId && p.Total == 0); // Carrinho vazio
-
-            if (purchase == null)
-            {
-                purchase = new Purchase
-                {
-                    User = user,
-                    OrderDate = DateTime.UtcNow,
-                    Total = 0,
-                    PurchaseItems = new List<PurchaseItem>()
-                };
-
-                _context.Purchases.Add(purchase);
-            }
-
-            // Verificar se o produto já está no carrinho
-            var existingItem = purchase.PurchaseItems.FirstOrDefault(pi => pi.ProductId == productId);
-            if (existingItem != null)
-            {
-                existingItem.Quantity += quantity;
-            }
-            else
-            {
-                purchase.PurchaseItems.Add(new PurchaseItem
-                {
-                    ProductId = productId,
-                    Quantity = quantity,
-                    UnitPrice = product.Price
-                });
-            }
-
-            await _context.SaveChangesAsync();
-            return Ok(purchase);
+            return NotFound($"Produto com ID {itemRequest.ProductId} não encontrado.");
         }
 
-        // Rota para finalizar a compra (checkout)
-        [HttpPost("comprar")]
-        public async Task<ActionResult<Purchase>> Comprar(int userId)
+        var purchaseItem = new PurchaseItem
         {
-            var purchase = await _context.Purchases
-                                          .Include(p => p.User)
-                                          .Include(p => p.PurchaseItems)
-                                              .ThenInclude(pi => pi.Product)
-                                          .FirstOrDefaultAsync(p => p.UserId == userId && p.Total == 0);
+            ProductId = itemRequest.ProductId,
+            Quantity = itemRequest.Quantity,
+            UnitPrice = product.Price
+        };
 
-            if (purchase == null)
-            {
-                return NotFound("Carrinho vazio ou já finalizado.");
-            }
+        purchase.PurchaseItems.Add(purchaseItem);
 
-            decimal total = 0;
+        // Calcular o total
+        total += purchaseItem.Quantity * purchaseItem.UnitPrice;
+    }
 
-            // Calcular o total
-            foreach (var item in purchase.PurchaseItems)
-            {
-                total += item.Quantity * item.UnitPrice;
-            }
+    // Atualizar o total e salvar a compra
+    purchase.Total = total;
 
-            // Atualizar o total e a data da compra
-            purchase.Total = total;
-            purchase.OrderDate = DateTime.UtcNow;
+    _context.Purchases.Add(purchase);
+    await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPurchases", new { id = purchase.Id }, new
-            {
-                purchase.Id,
-                UserName = purchase.User.Name,
-                purchase.OrderDate,
-                purchase.Total,
-                Items = purchase.PurchaseItems.Select(pi => new
-                {
-                    ProductName = pi.Product.Name,
-                    pi.Quantity,
-                    pi.UnitPrice
-                })
-            });
-        }
+    // Retornar os detalhes da compra
+    return CreatedAtAction("GetPurchases", new { id = purchase.Id }, new
+    {
+        purchase.Id,
+        UserName = user.Name,
+        purchase.OrderDate,
+        purchase.Total,
+        Items = purchase.PurchaseItems.Select(pi => new
+        {
+            ProductName = pi.Product.Name,
+            pi.Quantity,
+            pi.UnitPrice
+        })
+    });
+}
     }
 }

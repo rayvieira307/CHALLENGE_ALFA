@@ -20,28 +20,27 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
-import { GenericDialog } from './shared/dialogs/generic-dialog/generic-dialog';
-import { HomeComponent } from './shared/pages/homeCliente/home-page';
+ import { HomeComponent } from './shared/pages/homeCliente/home-page'; 
 import { AdminHomeComponent } from './shared/pages/homeAdmin/home-admin';
 import { UsersListComponent } from './shared/pages/userList/user-list';
 import { EditUserModalComponent } from './shared/components/edit-user/edit-user.component';
 import { ProductListComponent } from './shared/pages/product/product';
-/* import { PurchaseListComponent } from './shared/pages/purchase/purchase-list'; */
+import { PurchaseComponent } from './shared/pages/purchase/purchase-list';
+
 
 @NgModule({
   declarations: [
     ProductListComponent,
-/*     PurchaseListComponent, */
+    PurchaseComponent,
     EditUserModalComponent,
     UsersListComponent,
     AdminHomeComponent,
-    HomeComponent,
+    HomeComponent, 
     AppComponent,
     HeaderComponent,
     FooterComponent,
     LoginPage,
     ButtonPage,
-    GenericDialog,
   ],
   imports: [
     BrowserModule,

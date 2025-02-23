@@ -1,89 +1,59 @@
-/* import { Component, OnInit } from '@angular/core';
-import { PurchaseService } from '../../../core/services/PurchaseService';
-import { Purchase, PurchaseInsert } from '../../../core/models/Purchase';
+import { Component, OnInit } from '@angular/core';
+import { PurchaseService } from '../../../core/services/PurchaseService'; // Importe o serviço de compras
+import { Purchase } from 'src/app/core/models/Purchase';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { EditUserModalComponent } from '../../components/edit-user/edit-user.component';
 
 @Component({
   selector: 'app-purchase-list',
   templateUrl: './purchase-list.html',
-  styleUrls: ['./purchase-list.css'],
+  styleUrls: ['./purchase-list.css']
 })
-export class PurchaseListComponent implements OnInit {
-  purchases: Purchase[] = [];
-  novoPurchase: PurchaseInsert = { userId: -1, productName: '', amount: 0, date: '' };
-  mostrarModal = false;
+export class PurchaseComponent implements OnInit {
 
-  constructor(private purchaseService: PurchaseService, private router: Router, private dialog: MatDialog) {}
+  purchases: { userName: string, purchases: Purchase[], total: number }[] = [];
+  searchTerm: string = ''; // Variável para o termo de pesquisa
+
+  constructor(private purchaseService: PurchaseService, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadPurchases();  // Carregar todas as compras do admin
+    this.loadPurchases();
   }
 
-  // Função para carregar as compras
   loadPurchases(): void {
-    this.purchaseService.getAllPurchases().subscribe((purchases: Purchase[]) => {
-      this.purchases = purchases;
+    this.purchaseService.getAllPurchases().subscribe({
+      next: (data: Purchase[]) => {
+        // Agrupar compras por usuário
+        const groupedPurchases: { [userName: string]: { userName: string, purchases: Purchase[], total: number } } = {};
+
+        data.forEach((purchase) => {
+          const userName = purchase.userName;  // Agora usamos o userName da API
+          if (!groupedPurchases[userName]) {
+            groupedPurchases[userName] = {
+              userName,
+              purchases: [],
+              total: 0
+            };
+          }
+          groupedPurchases[userName].purchases.push(purchase);
+          groupedPurchases[userName].total += purchase.total;  // Somar o total das compras do usuário
+        });
+
+        // Converter o objeto em um array de compras agrupadas
+        this.purchases = Object.values(groupedPurchases);
+      },
+      error: (error) => {
+        console.error('Erro ao carregar compras', error);
+      }
     });
   }
 
-  // Função para abrir o modal de adicionar compra
-  abrirModal(): void {
-    this.mostrarModal = true;
-  }
-
-  // Função para fechar o modal de adicionar compra
-  fecharModal(): void {
-    this.mostrarModal = false;
-  }
-
-  // Função para adicionar uma nova compra
-  adicionarPurchase(): void {
-    this.purchaseService.addPurchase(this.novoPurchase).subscribe(
-      (response) => {
-        this.purchases.push(response);
-        this.fecharModal();
-        this.novoPurchase = { userId: -1, productName: '', amount: 0, date: '' };
-        alert('Compra adicionada com sucesso!');
-      },
-      (error) => {
-        console.error('Erro ao adicionar compra', error);
-        alert('Erro ao adicionar a compra. Tente novamente!');
-      }
+  // Método para filtrar as compras com base no nome de usuário
+  filteredPurchases() {
+    if (!this.searchTerm) {
+      return this.purchases;
+    }
+    return this.purchases.filter(group => 
+      group.userName.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
-  editPurchase(purchase: Purchase): void {
-    // Exemplo de implementação - abrir um modal de edição
-    const dialogRef = this.dialog.open(EditUserModalComponent, {
-      width: '400px',
-      data: purchase
-    });
-
-    dialogRef.afterClosed().subscribe(updatedPurchase => {
-      if (updatedPurchase) {
-        const index = this.purchases.findIndex(p => p.id === updatedPurchase.id);
-        if (index !== -1) {
-          this.purchases[index] = updatedPurchase; 
-        }
-      }
-    });
-  }
-  // Função para excluir uma compra
-  deletePurchase(purchaseId: number): void {
-    if (confirm('Tem certeza que deseja excluir esta compra?')) {
-      this.purchaseService.deletePurchase(purchaseId).subscribe(
-        () => {
-          this.loadPurchases();  // Recarregar a lista após exclusão
-          alert('Compra excluída com sucesso!');
-        },
-        (error) => {
-          console.error('Erro ao excluir compra', error);
-          alert('Erro ao excluir a compra. Tente novamente!');
-        }
-      );
-    }
-  }
-
 }
-  */
