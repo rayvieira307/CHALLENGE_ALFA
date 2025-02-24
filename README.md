@@ -29,11 +29,11 @@
 
 Este projeto é um sistema web para gestão de usuários, produtos e compras, composto por:
 
-🖥 Backend em C# (.NET Core) → API REST segura para operações CRUD.
+- 🖥 Backend em C# (.NET Core) → API REST segura para operações CRUD.
 
-🎨 Frontend em Angular → Interface responsiva e moderna.
+- 🎨 Frontend em Angular → Interface responsiva e moderna.
 
-📊 Power BI → Dashboards interativos para análise de dados.
+- 📊 Power BI → Dashboards interativos para análise de dados.
 
 
 ✨ Principais Funcionalidades:
@@ -58,7 +58,7 @@ git clone https://github.com/rayvieira307/CHALLENGE_ALFA.git
 
 2. No diretório /backend, instale as dependências:
 
-dotnet restore
+  - dotnet restore
 
 
 3. Configure a string de conexão no appsettings.json.
@@ -66,7 +66,7 @@ dotnet restore
 
 4. Execute a API:
 
-dotnet run
+ - dotnet run
 
 
 
@@ -77,40 +77,22 @@ dotnet run
 
 2. No diretório /frontend, instale as dependências:
 
-npm install
+ - npm install
 
 
 3. Execute o frontend:
 
-ng serve
+ - ng serve
 
 
 
 📊 4. Configuração do Power BI
 
-Abra o Power BI e conecte-se à API ou banco de dados.
+- Abra o Power BI e conecte-se à API ou banco de dados.
 
-Configure as relações entre as tabelas e crie os dashboards desejados.
+- Configure as relações entre as tabelas e crie os dashboards desejados.
 
 ---
-
-📂 Estrutura do Projeto
-
-/projeto
-│── /backend  # API em C#
-│    ├── Controllers/
-│    ├── Models/
-│    ├── Services/
-│    ├── Repositories/
-│    ├── appsettings.json
-│── /frontend  # Angular
-│    ├── src/
-│    ├── app/
-│    ├── assets/
-│    ├── angular.json
-│── /powerbi  # Relatórios e dashboards
-│── README.md  # Documentação
-
 
 
 > 📌 Para mais detalhes, acesse a documentação no Swagger:
