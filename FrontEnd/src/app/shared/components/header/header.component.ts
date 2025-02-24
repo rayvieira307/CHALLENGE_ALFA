@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../../../app/core/services/UserService';  // Ajuste o caminho conforme necessário
+import { UserService } from '../../../../app/core/services/UserService';  
 
 @Component({
   selector: 'app-header',

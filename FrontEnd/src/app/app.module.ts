@@ -13,9 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { LoginPage } from './shared/pages/login-page/login-page';
-import { ButtonPage } from './shared/pages/button-page/button-page';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-/* import { MainTableComponent } from './shared/components/main-table/main-table.component'; */
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -40,7 +38,6 @@ import { PurchaseComponent } from './shared/pages/purchase/purchase-list';
     HeaderComponent,
     FooterComponent,
     LoginPage,
-    ButtonPage,
   ],
   imports: [
     BrowserModule,

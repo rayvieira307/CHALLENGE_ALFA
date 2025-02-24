@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
       return false;
     }
   
-    // Chama o UserService para redirecionar com base na role do usuário
+  
     this.userService.handleRedirectionBasedOnRole();
     return true;
   }

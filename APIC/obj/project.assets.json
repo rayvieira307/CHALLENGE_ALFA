@@ -5227,11 +5227,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dgcwi\\OneDrive\\Documents\\Code_Challenge\\APIC#\\APIC#.csproj",
+      "projectUniqueName": "C:\\Users\\dgcwi\\OneDrive\\Documents\\Code_Challenge\\APIC\\APIC#.csproj",
       "projectName": "APIC#",
-      "projectPath": "C:\\Users\\dgcwi\\OneDrive\\Documents\\Code_Challenge\\APIC#\\APIC#.csproj",
+      "projectPath": "C:\\Users\\dgcwi\\OneDrive\\Documents\\Code_Challenge\\APIC\\APIC#.csproj",
       "packagesPath": "C:\\Users\\dgcwi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dgcwi\\OneDrive\\Documents\\Code_Challenge\\APIC#\\obj\\",
+      "outputPath": "C:\\Users\\dgcwi\\OneDrive\\Documents\\Code_Challenge\\APIC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dgcwi\\AppData\\Roaming\\NuGet\\NuGet.Config"
