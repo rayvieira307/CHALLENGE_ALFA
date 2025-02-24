@@ -152,5 +152,5 @@ Quer contribuir com este projeto? Siga estes passos:
 
 📩 Contato
 
-📧 Email: vieirarayssa167@gmail.com
-🐙 GitHub: rayvieira307
+- 📧 Email: vieirarayssa167@gmail.com
+- 🐙 GitHub: rayvieira307
